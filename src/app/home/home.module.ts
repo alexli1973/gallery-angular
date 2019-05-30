@@ -5,14 +5,16 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import {CoreModule} from '../core/core.module';
 import {LoaderComponent} from '../shared/components/loader/loader.component';
+import { ImagesListComponent } from './components/images-list/images-list.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    LoaderComponent
+    LoaderComponent,
+    ImagesListComponent
   ],
   imports: [
-   // CommonModule,
+    CommonModule,
     HomeRoutingModule,
     CoreModule
   ],
