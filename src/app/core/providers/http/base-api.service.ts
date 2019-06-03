@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpParams, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Observable, throwError } from 'rxjs';
 import {Image} from '../../models/image';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {User} from '../../models/user';
 import {Urls} from '../../models/urls';
 
@@ -10,7 +10,7 @@ import {Urls} from '../../models/urls';
   providedIn: 'root'
 })
 export class BaseApiService {
-  baseUrl = 'https://api.unsplash.com/photos/';
+  baseUrl = 'https://api.unsplash.com/photos';
   accessKey = '232b180336ed15f727b1051be98f347b14b406133f75ee1d3457912077a54e22';
   page = 1;
   perPage = 3;
@@ -18,36 +18,40 @@ export class BaseApiService {
 
   constructor(public http: HttpClient) { }
 
-  getFullResponse():Observable<HttpResponse>
+  // responseData(): Observable<HttpResponse> {
+  //    return this.http.get<HttpResponse>(this.reqUrl, {observe: 'response'})
+  //      .pipe(
+  //        catchError(this.handleError)
+  //      );
+  // }
 
-  getImages(): Observable<Image[]> {
-    // return this.http.get<Image[]>(this.reqUrl);
-    return this.http.get<Image[]>(this.reqUrl, {observe: 'events'})
-      .pipe((map(data => {
-      debugger;
-      return data.map((image: any) => {
-        const user: User =  image['user'];
-        const urls: Urls =  image['urls'];
-        return {
-          id: image.id,
-          createdAt: image.created_at,
-          updatedAt: image.updated_at,
-          width: image.width,
-          height: image.height,
-          likes: image.likes,
-          user: {
-            id: user.id,
-            username: user.username
-          },
-          urls : {
-            raw: urls.raw,
-            full: urls.full,
-            regular: urls.regular,
-            small: urls.small,
-            thumb: urls.thumb
-          }
-        };
+  responseData(pageNumber: string, perPage: string ): Observable<HttpResponse> {
+    const httpParams = new HttpParams()
+      .set('client_id', this.accessKey)
+      .set('page', pageNumber)
+      .set('per_page', perPage);
+    return this.http.get<HttpResponse>(this.baseUrl, {params: httpParams, observe: 'response'})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // client side error
+      console.error('An error occured:', error.error.message);
+    } else {
+      // backend error
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      {
+        errorMessage: error.error.errors,
+        errorCode: error.status
       });
-    })));
+     // 'Something bad happened; please try again later.');
   }
 }

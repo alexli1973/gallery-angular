@@ -6,12 +6,16 @@ import { HomeComponent } from './home.component';
 import {CoreModule} from '../core/core.module';
 import {LoaderComponent} from '../shared/components/loader/loader.component';
 import { ImagesListComponent } from './components/images-list/images-list.component';
+import { ImageCardComponent } from './components/image-card/image-card.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     LoaderComponent,
-    ImagesListComponent
+    ImagesListComponent,
+    ImageCardComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,

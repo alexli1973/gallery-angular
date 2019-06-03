@@ -1,4 +1,24 @@
-<p>Keys: {{keys}}</p>
+<!--<div *ngIf="!isLoaded" >-->
+  <!--Error: {{errStatus}}-->
+<!--</div>-->
+<div *ngIf="!isLoaded">
+  <app-loader></app-loader>
+</div>
+<div *ngIf="errLoad">
+  Error: {{errStatus.errorMessage[0]}} / Code: {{errStatus.errorCode }}
+</div>
 
-<pre>{{listImages | json}}</pre>
+<!--<pre>{{listImages | json}}</pre>-->
+
+<div>
+  <div *ngFor="let image of listImages; trackBy: trackById; let index = index; let count = count">
+    <p>Index: {{ index }}</p>
+    <p> Count: {{count}}</p>
+    <app-image-card [image]="image"></app-image-card>
+  </div>
+</div>
+
+<div class="pagination">
+  <app-pagination [totalImages]="totalImages" [imagesPerPage]="perPage"></app-pagination>
+</div>
 
