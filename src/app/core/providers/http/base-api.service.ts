@@ -25,12 +25,12 @@ export class BaseApiService {
   //      );
   // }
 
-  responseData(pageNumber: string, perPage: string ): Observable<HttpResponse> {
+  responseData(pageNumber: string, perPage: string ): Observable<any> {
     const httpParams = new HttpParams()
       .set('client_id', this.accessKey)
       .set('page', pageNumber)
       .set('per_page', perPage);
-    return this.http.get<HttpResponse>(this.baseUrl, {params: httpParams, observe: 'response'})
+    return this.http.get<any>(this.baseUrl, {params: httpParams, observe: 'response'})
       .pipe(
         catchError(this.handleError)
       );

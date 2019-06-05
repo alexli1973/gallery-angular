@@ -6,4 +6,17 @@
   total pages:
   {{totalPages}}
 </p>
+<p>
+  Current Page: {{curPage}}
+</p>
 
+<div class="pagination-control">
+  <ul>
+    <li>
+      <a (click)="setPage(1)">First</a>
+    </li>
+    <li>
+      <a (click)="setPage(totalPages)">Last</a>
+    </li>
+  </ul>
+</div>

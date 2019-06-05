@@ -1,0 +1,7 @@
+@import "global";
+
+.images-list-row {
+  @include flexbox();
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

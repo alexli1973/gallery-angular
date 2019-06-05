@@ -1,0 +1,10 @@
+<div>
+  <label>Number of pictures per page</label>
+  <select (change)="selectedQty($event.target.value)">
+    <option *ngFor="let qty of imagesQty " value={{qty}}>
+      {{qty}}
+    </option>
+  </select>
+</div>
+NOW - {{imagePerPage}}
+

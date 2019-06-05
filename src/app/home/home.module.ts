@@ -8,6 +8,7 @@ import {LoaderComponent} from '../shared/components/loader/loader.component';
 import { ImagesListComponent } from './components/images-list/images-list.component';
 import { ImageCardComponent } from './components/image-card/image-card.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { ViewControlComponent } from './components/view-control/view-control.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     LoaderComponent,
     ImagesListComponent,
     ImageCardComponent,
-    PaginationComponent
+    PaginationComponent,
+    ViewControlComponent
   ],
   imports: [
     CommonModule,

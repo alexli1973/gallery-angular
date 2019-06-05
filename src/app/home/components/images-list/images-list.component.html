@@ -9,9 +9,10 @@
 </div>
 
 <!--<pre>{{listImages | json}}</pre>-->
+<app-view-control (qtyChanged)="qtyChangedHandler($event)"></app-view-control>
 
-<div>
-  <div *ngFor="let image of listImages; trackBy: trackById; let index = index; let count = count">
+<div class="images-list-row">
+  <div class="images-list-item" *ngFor="let image of listImages; trackBy: trackById; let index = index; let count = count">
     <p>Index: {{ index }}</p>
     <p> Count: {{count}}</p>
     <app-image-card [image]="image"></app-image-card>
@@ -19,6 +20,6 @@
 </div>
 
 <div class="pagination">
-  <app-pagination [totalImages]="totalImages" [imagesPerPage]="perPage"></app-pagination>
+  <app-pagination [totalImages]="totalImages" [imagesPerPage]="perPage" (selectedPage)="selectedPage($event)"></app-pagination>
 </div>
 
